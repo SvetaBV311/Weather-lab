@@ -26,11 +26,29 @@ void Tools::showFiveDaysForecast(const json& data) {
 		if (sum / counter - 273.15 > 0) {
 			std::cout << "+";
 		}
-		std::cout << std::setprecision(2) << std::fixed;
+		std::cout << std::setprecision(1) << std::fixed;
 		std::cout << sum / counter - 273.15 << "°C" << std::endl;
 		index = index_2;
 	}
+}
 
+void Tools::showOneDayWeather(const json& data, const std::string& ndate) {
+	std::cout << std::endl;
+	int counter = 0; float sum = 0; std::string date;
+	for (int index = 0; index < data["list"].size(); index++) {
+		date = data["list"][index]["dt_txt"];
+		date.erase(10);
+		if (ndate == date) {
+			counter += 1;
+			sum += data["list"][index]["main"]["temp"];
+		}
+	}
+	std::cout << ndate << " Temp: ";
+	if (sum / counter - 273.15 > 0) {
+		std::cout << "+";
+	}
+	std::cout << std::setprecision(1) << std::fixed;
+	std::cout << sum / counter - 273.15 << "°C" << std::endl;
 }
 
 void Tools::showCurrentWeather(const json& data) {
@@ -50,5 +68,6 @@ void Tools::showMenu() {
 	std::cout << std::endl << "Выберите опцию: " << std::endl;
 	std::cout << "1 - Узнать погоду на данный момент;" << std::endl;
 	std::cout << "2 - Посмотреть прогноз погоды на 5 дней;" << std::endl;
-	std::cout << "3 - Выход." << std::endl;
+	std::cout << "3 - Посмотреть прогноз погоды на конкретный день из ближайших 5 дней;" << std::endl;
+	std::cout << "4 - Выход." << std::endl;
 }

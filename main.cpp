@@ -11,7 +11,7 @@ void main() {
 	using json = nlohmann::json;
 	setlocale(LC_ALL, "RUS");
 
-	std::string city, choice; bool bl = true;
+	std::string city, choice, ndate; bool bl = true;
 	std::cout << "Введите город: ";
 	std::cin >> city;
 
@@ -27,6 +27,11 @@ void main() {
 			showFiveDaysForecast(app->getWeatherForFiveDays());
 		}
 		else if (choice == "3") {
+			std::cout << std::endl << "Введите интересующую вас дату: ";
+			std::cin >> ndate;
+			showOneDayWeather(app->getWeatherForFiveDays(), ndate);
+		}
+		else if (choice == "4") {
 			std::cout << std::endl << "До новых встреч!" << std::endl;
 			bl = false;
 		}
